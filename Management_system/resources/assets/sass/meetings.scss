@@ -1,0 +1,125 @@
+.left{
+  float: left;
+}
+.right{
+  float: right;
+}
+.for-date{
+  width: 200px;
+}
+.for-send{
+  padding-left: 1000px;
+}
+.meeting-block{
+
+}
+.header-table{
+  background-color: #747474;
+  color: white;
+}
+
+
+.text-table{
+  font-weight: 200;
+}
+.risk-mini{
+  padding: 5px;
+}
+
+.specify-meeting-block{
+  background-color: #3785d1;
+  color: white;
+}
+.links-table{
+  color: white;
+  text-decoration: none;
+}
+
+.description-table{
+  background-color: #F4F4F4;
+}
+
+.wr-table{
+  border: 1px solid #3785d1;
+  position: relative;
+  top: -22px;
+}
+.description{
+  font-weight: 600;
+}
+.description-mini{
+  font-weight: 200;
+
+}
+.description-th{
+  padding: 10px;
+}
+
+.btn-position{
+  margin-left: 1025px ;
+}
+
+.ur-fixed{
+  display: block;
+  float: left;
+  width: 500px;
+}
+.ur-fixed-min{
+  width: 40px;
+}
+
+
+.link-pad-mini{
+  display: inline-block;
+  width: 300px;
+  color:  #3785d1;
+  font-weight: 600;
+}
+
+.pad1 {
+position: relative;
+  left: 100px;
+}
+
+.pad2 {
+  position: relative;
+  left: 150px;
+}
+
+
+//to select a risk_status
+#user-status-block{
+  display: none;
+  border: 1px solid #3785d1;
+  padding: 10px;
+  width:200px;
+  text-align: center;
+}
+
+.user-status-block:hover{
+  border: 1px solid greenyellow;
+  padding: 10px;
+  width:200px;
+  text-align: center;
+}
+.b-risk{
+  border-radius: 70px;
+  border: none;
+  background-color: rgba(0,0,0,0);
+}
+//link to select a risk_status
+.risk-middle{
+  position: relative;
+  left: 150px;
+  font-weight: 700;
+}
+.click-for-show{
+  color: #c7254e;
+  font-weight: 700;
+  cursor: pointer;
+}
+.click-for-show:hover{
+  color: greenyellow;
+  font-weight: 700;
+  cursor: pointer;
+}
