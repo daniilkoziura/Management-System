@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -27,7 +28,14 @@ class MeetingController extends Controller
      */
     protected function showMeetings(User $user)
     {
+        if (Auth::user()->hasRole('Manager')) {
+
             $meetings = Meeting::orderby('created_at', 'desc')->get();
+
+        } else {
+
+            $meetings = Meeting::orderby('created_at', 'desc')->where('user_id', '=', Auth::user()->id)->get();
+        }
 
         return view('layouts.meetings', compact('meetings', 'user'));
     }
@@ -38,12 +46,19 @@ class MeetingController extends Controller
      * @param Meeting $meeting
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function media(User $user, Meeting  $meeting)
+    public function media(User $user, Meeting $meeting)
     {
-       // dd($user, $meeting);
-        $meetings = Meeting::orderby('created_at', 'desc')->get();
+        if (Auth::user()->hasRole('Manager')) {
+
+            $meetings = Meeting::orderby('created_at', 'desc')->get();
+
+        } else {
+
+            $meetings = Meeting::orderby('created_at', 'desc')->where('user_id', '=', Auth::user()->id)->get();
+        }
         $comments = Comment::where('meeting_id', '=', $meeting->id)->latest()->get();
-        return view('layouts.full_meetings', compact('meeting', 'user', 'comments' , 'meetings'));
+
+        return view('layouts.full_meetings', compact('meeting', 'user', 'comments', 'meetings'));
 
     }
 
@@ -52,34 +67,38 @@ class MeetingController extends Controller
      * @param Request $request
      * @return $this|\Illuminate\Http\RedirectResponse
      */
-    public function create(User $user,  Request $request)
+    public function create(User $user, Request $request)
     {
-        if ($request->user()->hasRole('Manager') ){
-            if (empty($request->date)){
-                $date =date("Y-m-d");
-            }else{
+        if ($request->user()->hasRole('Manager')) {
+            if (empty($request->date)) {
+
+                $date = date("Y-m-d");
+
+            } else {
+
                 $date = $request->date;
+
             }
 
             $this->validate($request, [
-                'title' =>'required',
-                'description' =>'required|min:5',
+                'title' => 'required',
+                'description' => 'required|min:5',
             ]);
 
-         Meeting::create([
-            'title'=>$request->title,
+            Meeting::create([
+                'title' => $request->title,
 
-            'description'=>$request->description,
+                'description' => $request->description,
 
-            'manager_id'=>$request->user()->id,
+                'manager_id' => $request->user()->id,
 
-            'user_id' =>$user->id,
+                'user_id' => $user->id,
 
-             'date'=> $date
-        ]);
-        }else{
+                'date' => $date
+            ]);
+        } else {
             return back()->withErrors(
-                'message','Check your permissions and try again'
+                'message', 'Check your permissions and try again'
             );
         }
         $user->risk_status = 0;
@@ -98,7 +117,6 @@ class MeetingController extends Controller
         $user->save();
         return back();
     }
-
 
 
 }

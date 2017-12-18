@@ -7,6 +7,7 @@ use \App\User;
 use \App\Meeting;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Manager Controller
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 |  recommended users and last meetings of new users, search method which search users by their names.
 |
 */
+
 class ManagerController extends Controller
 {
 
@@ -29,7 +31,7 @@ class ManagerController extends Controller
 
         $users = User::orderBy('join_date', 'desc')->paginate(9);
 
-        if (Auth::user()->hasRole('Manager') ){
+        if (Auth::user()->hasRole('Manager')) {
             $id = Auth::user()->id;
             $meetings = Meeting::orderby('created_at', 'desc')->where('manager_id',
                 '=', $id)->limit(10)->get();
@@ -45,24 +47,23 @@ class ManagerController extends Controller
      */
     protected function search(Request $request)
     {
-        $this->validate($request,[
-            'name'=>'required|min:2'
+        $this->validate($request, [
+            'name' => 'required|min:2'
         ]);
         $searchName = $request->name;
         $searchUser = User::where('name', '=', $searchName)->get();
-            foreach ($searchUser as $item){
-                $searchId = $item->id;
+        foreach ($searchUser as $item) {
+            $searchId = $item->id;
 
-            }
-        if (!isset($searchId)){
-                return back()->withErrors(array('message' => "user  '$searchName'  is not found."));
-        }else{
+        }
+        if (!isset($searchId)) {
+            return back()->withErrors(array('message' => "user  '$searchName'  is not found."));
+        } else {
 
             return redirect("/meeting/$searchId");
         }
 
     }
-
 
 
 }

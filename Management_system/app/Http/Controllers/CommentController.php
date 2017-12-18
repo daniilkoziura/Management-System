@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Comment;
 use App\Meeting;
 use App\User;

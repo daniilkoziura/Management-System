@@ -33,9 +33,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->hasRole('Manager')){
+        $user = Auth::user()->id;
+        if (Auth::user()->hasRole('Manager')) {
             return redirect('/manager/home');
         }
-        return redirect('/meeting/1');
+        return redirect("/meeting/$user");
     }
 }
