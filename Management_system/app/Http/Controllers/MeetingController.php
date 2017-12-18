@@ -30,7 +30,7 @@ class MeetingController extends Controller
     {
         if (Auth::user()->hasRole('Manager')) {
 
-            $meetings = Meeting::orderby('created_at', 'desc')->get();
+            $meetings = Meeting::orderby('created_at', 'desc')->where('user_id', '=', $user->id);
 
         } else {
 
@@ -50,7 +50,7 @@ class MeetingController extends Controller
     {
         if (Auth::user()->hasRole('Manager')) {
 
-            $meetings = Meeting::orderby('created_at', 'desc')->get();
+            $meetings = Meeting::orderby('created_at', 'desc')->where('user_id', '=', $user->id);
 
         } else {
 
